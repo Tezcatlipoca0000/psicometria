@@ -1,0 +1,49 @@
+{
+    "name": "Escala de Automedición de la Depresión de Zung",
+    "description": "La Escala de Automedición de la Depresión (EAMD), desarrollada por William W. K. Zung, es un instrumento psicológico autoadministrado que se utiliza para evaluar la presencia y gravedad de los síntomas depresivos en una persona. Esta escala proporciona una medida cuantitativa de la depresión, lo que facilita su diagnóstico y seguimiento a lo largo del tiempo.",
+    "functioning": "La EAMD consta de un conjunto de preguntas que exploran diferentes aspectos de la depresión, como el estado de ánimo, los pensamientos negativos, los trastornos del sueño y los cambios en el apetito. Los participantes responden a estas preguntas seleccionando la opción que mejor describe cómo se sienten en las últimas semanas.\nLas respuestas se puntúan y se suman para obtener una puntuación total. Esta puntuación se compara con unos criterios establecidos para determinar la gravedad de la depresión.",
+    "utilization": "La EAMD se utiliza en diversos contextos, incluyendo:\nDiagnóstico: Ayuda a los profesionales de la salud mental a identificar la presencia y gravedad de la depresión en pacientes.\nSeguimiento: Permite evaluar la evolución de los síntomas depresivos a lo largo del tratamiento y determinar su eficacia.\nInvestigación: Se utiliza en estudios científicos para investigar los factores que influyen en la depresión y para evaluar la eficacia de nuevas terapias.",
+    "advantajes": "Facilidad de aplicación: Es un instrumento sencillo de administrar y completar, tanto para el evaluador como para el paciente.\nFiabilidad y validez: Ha demostrado tener una buena fiabilidad y validez, lo que significa que es consistente en la medición de la depresión y que mide lo que se pretende medir.\nSensibilidad a los cambios: Es sensible a los cambios en la gravedad de los síntomas depresivos, lo que permite detectar mejoras o empeoramientos en el estado del paciente.",
+    "limitations": "Autoinforme: Al ser un instrumento de autoinforme, los resultados pueden verse afectados por la honestidad y la capacidad del paciente para evaluar sus propios síntomas.\nNo reemplaza la evaluación clínica: La EAMD es una herramienta útil, pero no debe utilizarse como único criterio para el diagnóstico de la depresión. Es importante complementarla con una evaluación clínica completa realizada por un profesional de la salud mental.\nNo cubre todos los aspectos de la depresión: Aunque la EAMD evalúa una amplia gama de síntomas, no abarca todos los aspectos de la depresión.",
+    "instructions": "A continuación, encontrará una serie de preguntas diseñadas para conocer cómo se ha sentido en las últimas semanas. Por favor, lea cada pregunta detenidamente y seleccione la opción que mejor describa cómo se ha sentido usted en este período. Para responder, marque la casilla correspondiente a la opción que usted considere más adecuada. Recuerde responder de manera espontánea, sin pensar demasiado en cada respuesta. No hay respuestas correctas o incorrectas, simplemente responda con sinceridad.",
+    "questions": ["Me siento abatido y melancólico", "Por las mañanas es cuando me siento mejor", "Tengo accesos de llanto o ganas de llorar", "Duermo mal", "Tengo tanto apetito como antes", "Sigo sintiendo el mismo nivel de atracción que antes hacia las personas", "Noto que estoy perdiendo peso", "Tengo trastornos intestinales y estreñimiento", "Me late el corazón más aprisa que de costumbre", "Me canso sin motivo", "Tengo la mente tan clara como antes", "Hago las cosas con la misma facilidad que antes", "Me siento nervioso y no puedo quedarme quieto", "Tengo esperanza en el futuro", "Estoy más irritable que antes", "Me es fácil tomar decisiones", "Me siento útil y necesario", "Me satisface mi vida actual", "Creo que los demás estarían mejor si yo muriera", "Disfruto de las mismas cosas que antes"],
+    "answers": ["Nunca o casi nunca", "A veces", "Con bastante frecuencia", "Siempre o casi siempre"],
+    "scores": [[1,2,3,4], [4,3,2,1], [1,2,3,4], [1,2,3,4], [4,3,2,1], [4,3,2,1], [1,2,3,4], [1,2,3,4], [1,2,3,4], [1,2,3,4], [4,3,2,1], [4,3,2,1], [1,2,3,4], [4,3,2,1], [1,2,3,4], [4,3,2,1], [4,3,2,1], [4,3,2,1], [1,2,3,4], [4,3,2,1]],
+    "interpretation": {
+        "lt40": "Dentro de los límites normales No hay Depresión presente",
+        "41-60": "Desorden Emocional",
+        "61-70": "Depresión Situacional",
+        "gt70": "Depresión Ambulatoria"
+    },
+    "syntoms": {
+        "Estado afectivo persistente": {
+            "Deprimido, triste, melancólico": 1,
+            "Accesos de llanto": 2
+        },
+        "Trastornos fisiológicos": {
+            "Variación diurna, los síntomas son mayores por la mañana y disminuye algo a medida que avanza el día.": 3,
+            "Sueño: se despierta demasiado temprano o varias veces durante la noche": 4,
+            "Apetito: disminución de ingestión de alimentos": 5,
+            "Pérdida de peso: con disminución de la ingestión de alimentos o con aumento del metabolismo y disminución del reposo": 7,
+            "Función sexual: disminución de la libido": 6,
+            "Gastrointestinales: estreñimiento": 8,
+            "Cardiovasculares: taquicardia": 9,
+            "Músculo esqueléticos: fatiga": 10
+        },
+        "Trastornos psicomotores": {
+            "Agitación psicomotora": 13,
+            "Astenia psicomotora": 12
+        },
+        "Trastornos psíquicos": {
+            "Confusión": 11,
+            "Sensación de Vacío": 18,
+            "Desesperanza": 14,
+            "Indecisión": 16,
+            "Irritabilidad": 15,
+            "Insatisfacción": 20,
+            "Desvalorización personal": 17,
+            "Ideas suicidas": 19
+        }
+    },
+    "notes": "Adapte una pregunta presente en la escala. de: 'Aun me atraen las personas del sexo opuesto' a: 'Sigo sintiendo el mismo nivel de atracción que antes hacia las personas'. el cambio es considerado necesario para reflejar mejor la cultura actual."
+}
