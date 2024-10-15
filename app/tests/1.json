@@ -7,13 +7,25 @@
     "limitations": "Autoinforme: Al ser un instrumento de autoinforme, los resultados pueden verse afectados por la honestidad y la capacidad del paciente para evaluar sus propios síntomas.\nNo reemplaza la evaluación clínica: La EAMD es una herramienta útil, pero no debe utilizarse como único criterio para el diagnóstico de la depresión. Es importante complementarla con una evaluación clínica completa realizada por un profesional de la salud mental.\nNo cubre todos los aspectos de la depresión: Aunque la EAMD evalúa una amplia gama de síntomas, no abarca todos los aspectos de la depresión.",
     "instructions": "A continuación, encontrará una serie de preguntas diseñadas para conocer cómo se ha sentido en las últimas semanas. Por favor, lea cada pregunta detenidamente y seleccione la opción que mejor describa cómo se ha sentido usted en este período. Para responder, marque la casilla correspondiente a la opción que usted considere más adecuada. Recuerde responder de manera espontánea, sin pensar demasiado en cada respuesta. No hay respuestas correctas o incorrectas, simplemente responda con sinceridad.",
     "questions": ["Me siento abatido y melancólico", "Por las mañanas es cuando me siento mejor", "Tengo accesos de llanto o ganas de llorar", "Duermo mal", "Tengo tanto apetito como antes", "Sigo sintiendo el mismo nivel de atracción que antes hacia las personas", "Noto que estoy perdiendo peso", "Tengo trastornos intestinales y estreñimiento", "Me late el corazón más aprisa que de costumbre", "Me canso sin motivo", "Tengo la mente tan clara como antes", "Hago las cosas con la misma facilidad que antes", "Me siento nervioso y no puedo quedarme quieto", "Tengo esperanza en el futuro", "Estoy más irritable que antes", "Me es fácil tomar decisiones", "Me siento útil y necesario", "Me satisface mi vida actual", "Creo que los demás estarían mejor si yo muriera", "Disfruto de las mismas cosas que antes"],
-    "answers": ["Nunca o casi nunca", "A veces", "Con bastante frecuencia", "Siempre o casi siempre"],
+    "answers": ["Nunca o casi nunca", "A veces", "Frecuentemente", "Siempre o casi siempre"],
     "scores": [[1,2,3,4], [4,3,2,1], [1,2,3,4], [1,2,3,4], [4,3,2,1], [4,3,2,1], [1,2,3,4], [1,2,3,4], [1,2,3,4], [1,2,3,4], [4,3,2,1], [4,3,2,1], [1,2,3,4], [4,3,2,1], [1,2,3,4], [4,3,2,1], [4,3,2,1], [4,3,2,1], [1,2,3,4], [4,3,2,1]],
     "interpretation": {
-        "lt40": "Dentro de los límites normales No hay Depresión presente",
-        "41-60": "Desorden Emocional",
-        "61-70": "Depresión Situacional",
-        "gt70": "Depresión Ambulatoria"
+        "lt40": {
+            "dx": "Ausencia de Depresión",
+            "meaning": "Índice de valoración entre 20 y 40, lo que indica que el individuo no presenta síntomas depresivos significativos."
+        },
+        "41-60": {
+            "dx": "Depresión Leve",
+            "meaning": "Índice de valoración entre 41 y 60, lo que sugiere la presencia de síntomas depresivos leves, como tristeza, pérdida de interés en actividades y cambios en el apetito o el sueño."
+        },
+        "61-70": {
+            "dx": "Depresión Moderada",
+            "meaning": "Índice de valoración entre 61 y 70, lo que indica la presencia de síntomas depresivos moderados, como ansiedad, irritabilidad, fatiga y cambios en el estado de ánimo."
+        },
+        "gt70": {
+            "dx": "Depresión Grave",
+            "meaning": "Índice de valoración superiores a 70, lo que sugiere la presencia de síntomas depresivos graves, como pensamientos suicidas, pérdida de la capacidad para realizar actividades cotidianas y cambios significativos en el estado de ánimo y la motivación."
+        } 
     },
     "syntoms": {
         "Estado afectivo persistente": {
@@ -46,4 +58,5 @@
         }
     },
     "notes": "Adapte una pregunta presente en la escala. de: 'Aun me atraen las personas del sexo opuesto' a: 'Sigo sintiendo el mismo nivel de atracción que antes hacia las personas'. el cambio es considerado necesario para reflejar mejor la cultura actual."
+
 }
