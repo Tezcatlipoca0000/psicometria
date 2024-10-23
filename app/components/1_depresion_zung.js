@@ -3,23 +3,37 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import test from "@/app/tests/1.json";
+import { UUID } from "uuidjs";
+import Link from "next/link";
 
 export default function DepresionTest1() {
   const [display, setDisplay] = useState(false);
   const [question, setQuestion] = useState(0);
   const [client, setClient] = useState({});
   const [last, setLast] = useState(false);
-  const [results, setResults] = useState([]); // maybe use for later
+  const [results, setResults] = useState([]); 
+  const [startDescription, setStartDescription] = useState(true);
+  const [startInstructions, setStartInstructions] = useState(false);
+  const [startApplication, setStartApplication] = useState(false);
+  const [applicationURL, setApplicationURL] = useState({});
+  const [startTest, setStartTest] = useState(false);
+  const [startResults, setStartResults] = useState(false);
 
   useEffect(()=>{
     if (last) processResults();
   }, [client, last]);
 
   function openTest() {
+    setStartInstructions(false);
+    setStartApplication(false);
+    setApplicationURL({});
+    setStartTest(false);
+    setStartResults(false);
     setLast(false);
     setClient({});
     setDisplay(!display);
     setQuestion(0);
+    if (display) setStartDescription(true);
   }
 
   function slideNext() {
@@ -30,11 +44,16 @@ export default function DepresionTest1() {
     let newClient = {...client};
     newClient[`${question}`] = answerIdx;
     setClient(newClient);
-    slideNext();
-    if (question === test.questions.length -1) setLast(true);
+    if (question === test.questions.length -1) {
+      setLast(true);
+    } else {
+      slideNext();
+    }
   }
 
   function processResults() {
+    setStartTest(false);
+    setStartResults(true);
     let score = [],
         clientSyntoms = {...test.syntoms},
         newResults = [...results];
@@ -77,19 +96,39 @@ export default function DepresionTest1() {
     newResults.push(`Tabla de puntajes por ítems:`);
     newResults.push(JSON.stringify(clientSyntoms, null, 2));
     newResults.push(`En resumen: El paciente presenta `);
-    console.log("Imprimiendo resultados....\n\n");
-    newResults.forEach((e) => console.log(e));
-    valorationReport.altos.forEach((e) => console.log(e));
-    valorationReport.bajos.forEach((e) => console.log(e));
+    valorationReport.altos.forEach((e) => newResults.push(e));
+    valorationReport.bajos.forEach((e) => newResults.push(e));
+    setResults(newResults);
   }
 
   const answersComponent = test.answers.map((value, idx) => {
     return (
-        <button key={`answer_idx`} onClick={()=>registerAnswer(idx)} className="border rounded-full ml-4 p-2">
+        <button key={`answer_${idx}`} onClick={()=>registerAnswer(idx)} className="border rounded-full ml-4 p-2">
             {test.answers[idx]}
         </button>
     );
   });
+
+  function generateApplication(event) {
+    event.preventDefault();
+    let clientURL = "/resultados/",
+        uniqueId = UUID.generate(),
+        newApplicationURL = {...applicationURL},
+        num = event.target.applicationNum.value;
+    
+    newApplicationURL["client"] = <Link href={`${clientURL}${uniqueId}`} target="_blank" className="overflow-x-auto bg-gray-400 my-1">{`${clientURL}${uniqueId}`}</Link>;
+    newApplicationURL["subject"] = [];
+    
+    for (let i = 0; i < num; i++) {
+      let uniqueId = UUID.generate(),
+          expirationTime = new Date(),
+          subjectURL = "/prueba/";
+      expirationTime.setTime(expirationTime.getTime() + (3600000 * 24));
+      newApplicationURL["subject"].push(<Link key={`subject-${i}`} href={`${subjectURL}${uniqueId}`} target="_blank" className="overflow-x-auto bg-gray-400 my-1">{`${subjectURL}${uniqueId}`}</Link>);
+    }
+    
+    setApplicationURL(newApplicationURL);
+  }
 
   return (
     
@@ -97,25 +136,148 @@ export default function DepresionTest1() {
       <button onClick={openTest}>
         {`${test.name}`}
       </button>
-      <div className={`${display ? 'block' : 'hidden'} w-2/3 h-3/4 bg-white border-1 border-gray-400 rounded-md fixed top-[12.5%] left-[16.5%] z-50 shadow-2xl drop-shadow-2xl flex justify-center items-center flex-col`}>
-        <div> {/*Maybe make this div display?block:hidden as well. ofc diff variable that displays the test and have another div with block:hidden that displays the instructions before and another at the end that displays the results all inside the above block:hidden. Maybe give the fade out-in effect to the other divs as if text appears-dissapears inside the card (container div)*/}
-          <button onClick={openTest}>
-            Close
-          </button>
+      <div className={`${display ? 'block' : 'hidden'} w-2/3 h-3/4 bg-white border-1 border-gray-400 rounded-md fixed top-[12.5%] left-[16.5%] z-50 shadow-2xl drop-shadow-2xl`}>
+
+        {/* Test Description */}
+        <div className={`${startDescription ? 'block' : 'hidden'} flex flex-col w-full h-full`}>
+          <div className={`w-full flex justify-start m-2 p-2`}> 
+            <button onClick={openTest}>
+              Close
+            </button>
+          </div>
+          <div className="p-2 m-2 overflow-y-auto ">
+            <h2 className="text-center">
+              {test.name}
+            </h2>
+            <p>
+              {test.description}
+            </p>
+            <p>
+              {test.functioning}
+            </p>
+            <p>
+              {test.advantajes}
+            </p>
+            <p>
+              {test.limitations}
+            </p>
+          </div>
+          <div className="flex justify-evenly p-4">
+            <button onClick={() => {setStartDescription(false); setStartInstructions(true);}} className="border rounded-full ml-4 p-2">
+              Auto-Aplicación
+            </button>
+            <button onClick={() => {setStartDescription(false); setStartApplication(true);}} className="border rounded-full ml-4 p-2"> 
+              Aplicación Individual / Grupal {/* Give URL's /prueba/[id] for participants */}
+            </button>
+          </div>
         </div>
-        <div>
-          {test.questions[question]}
+
+        {/* Test Instructions */}
+        <div className={`${startInstructions ? 'block' : 'hidden'}`}>
+          <div className={`w-full flex justify-start m-2 p-2 max-h-fit`}> 
+            <button onClick={openTest}>
+              Close
+            </button>
+          </div>
+          <div>
+            <p>
+              {test.instructions}
+            </p>
+          </div>
+          <div className="flex justify-evenly p-4">
+            <button onClick={() => {setStartInstructions(false); setStartTest(true);}} className="border rounded-full ml-4 p-2">
+              Comenzar
+            </button>
+          </div>
         </div>
-        <div className="flex justify-evenly">
-          {answersComponent}
+
+        {/* Test Application */}
+        <div className={`${startApplication ? 'block' : 'hidden'}`}>
+          <div className={`w-full flex justify-start m-2 p-2 max-h-fit`}> 
+            <button onClick={openTest}>
+              Close
+            </button>
+          </div>
+          <form className="w-full flex justify-evenly" onSubmit={generateApplication}>
+            <label>
+              Ingrese el número de aplicantes: 
+            </label>
+            <input id="applicationNum" name="applicationNum" className="border" type="number" min={1} step={1} max={120} required />
+            <button type="submit">
+              Generar
+            </button>
+          </form>
+          <div className={`${applicationURL["client"] ? 'block' : 'hidden'} flex flex-col`}>
+            <label>
+              URL del Aplicador:
+            </label>
+            <div>
+              {applicationURL["client"]}
+            </div>
+            <label>
+              URL de los sujetos:
+            </label>
+            <div className="flex flex-col overflow-y-auto">
+              {applicationURL["subject"]}
+            </div>
+          </div>
         </div>
-        <div>
-          <button onClick={slideNext}>
-            Next
-          </button>
+
+        {/* Test Questions */}
+        <div className={`${startTest ? 'block' : 'hidden'}`}>
+          <div className={`w-full flex justify-start m-2 p-2 max-h-fit`}> 
+            <button onClick={openTest}>
+              Close
+            </button>
+          </div>
+          <div className="w-full h-full flex justify-center items-center">
+            {test.questions[question]}
+          </div>
+          <div className="flex justify-evenly mb-12">
+            {answersComponent}
+          </div>
         </div>
+
+        {/* Test Results --Pending */}
+        <div className={`${startResults ? 'block' : 'hidden'} overflow-y-auto`}>
+        <div className={`w-full flex justify-start m-2 p-2 max-h-fit`}> 
+            <button onClick={openTest}>
+              Close
+            </button>
+          </div>
+          <p>
+            {JSON.stringify(results)}
+          </p>
+        </div>
+
       </div>
     </>
         
   );
 }
+
+/*
+MAYBE
+move the description and application back to testList 
+leave instructions, questions and results here
+import this component (1_dep....js) to /prueba/[id]
+from page.js import test from "@/app/tests/1.json" and pass test as props to testList and 1_dep..
+
+TODO
+create the database 
+ex:
+{
+  "a1b2c3d4": {
+    "test": 1,
+    "subjects": {
+      "1a2b3c4d": [results go here]
+    }
+  }
+}
+ex:
+TABLE clients(key, test, subjectkey)
+TABLE subjects(key, clientKey, results)
+
+re-render /resultados/[id] when pushing results to DB
+
+*/
