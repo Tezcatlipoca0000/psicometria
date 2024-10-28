@@ -2,7 +2,7 @@ import DepresionTest from "@/app/components/1_depresion_zung.js";
 
 export default function TestsList() {
   const tests = [
-    <DepresionTest />,
+    <DepresionTest key={"1"}/>,
     "Other"
   ];
 
