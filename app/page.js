@@ -1,5 +1,5 @@
 
-import Image from "next/image";
+//import Image from "next/image";
 import TestsList from "@/app/components/testsList.js";
 
  export default function Home() {

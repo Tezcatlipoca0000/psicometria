@@ -116,7 +116,7 @@ export default function DepresionTest1() {
         newApplicationURL = {...applicationURL},
         num = event.target.applicationNum.value;
     
-    newApplicationURL["client"] = <Link href={`${clientURL}${uniqueId}`} target="_blank" className="overflow-x-auto bg-gray-400 my-1">{`${clientURL}${uniqueId}`}</Link>;
+    newApplicationURL["client"] = <Link key={"clientURL"} href={`${clientURL}${uniqueId}`} target="_blank" className="overflow-x-auto bg-gray-400 my-1">{`${clientURL}${uniqueId}`}</Link>;
     newApplicationURL["subject"] = [];
     
     for (let i = 0; i < num; i++) {
